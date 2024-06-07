@@ -47,12 +47,14 @@ api.any("/", async (req, res) => {
         //header
         res.header('x-ly-host', host)
         res.header('x-ly-port', port)
-  
         res.send('HTTP/1.1 200 Connection Established\r\n\r\n')
         return
       }
     }
-  
+
+    console.log('host: ' + host)
+    console.log('port: ' + port)
+
     //var host = 'example.com', port = 80
     var socket = net.connect(port, host, function() {
         //var request = "GET / HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
