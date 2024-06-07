@@ -7,7 +7,7 @@ const api = createAPI();
 var net = require('net')
 
 var end = false
-var rawResponse = 0
+var rawResponse = ''
 
 
 function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
@@ -66,6 +66,7 @@ api.any("/", async (req, res) => {
         //var request = "GET / HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
         //var request = "GET example.com:80 HTTP/1.1\r\nHost: example.com:80\r\nUser-Agent: curl/7.88.1\r\nProxy-Connection: Keep-Alive\r\n\r\n"
         // send http request:
+        socket.setEncoding('utf8')
         socket.end(in_data)
   
         // assume utf-8 encoding:
@@ -73,9 +74,7 @@ api.any("/", async (req, res) => {
   
         // collect raw http message:
         socket.on('data', function(chunk) {
-            rawResponse += chunk.length
-            console.log('chunk: ' + chunk)
-            console.log('chunk: ' + chunk.length)
+            rawResponse += chunk.toString()
         })
         socket.on('end', function(){
             end=true
