@@ -73,8 +73,9 @@ api.any("/", async (req, res) => {
   
         // collect raw http message:
         socket.on('data', function(chunk) {
-            rawResponse += chunk
-            console.log('chunk: ' + chunk)
+            //rawResponse += chunk
+            //console.log('chunk: ' + chunk)
+            rawResponse = Buffer.concat([rawResponse, chunk])
         })
         socket.on('end', function(){
             end=true
