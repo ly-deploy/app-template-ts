@@ -66,7 +66,6 @@ api.any("/", async (req, res) => {
         //var request = "GET / HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
         //var request = "GET example.com:80 HTTP/1.1\r\nHost: example.com:80\r\nUser-Agent: curl/7.88.1\r\nProxy-Connection: Keep-Alive\r\n\r\n"
         // send http request:
-        socket.setEncoding('utf8')
         socket.end(in_data)
   
         // assume utf-8 encoding:
@@ -74,7 +73,7 @@ api.any("/", async (req, res) => {
   
         // collect raw http message:
         socket.on('data', function(chunk) {
-            rawResponse += chunk.toString()
+            rawResponse += chunk.toString('binary')
         })
         socket.on('end', function(){
             end=true
