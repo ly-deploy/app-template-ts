@@ -47,7 +47,6 @@ api.any("/", async (req, res) => {
         res.append('X-Ly-Host', host)
         res.append('X-Ly-Port', port)
   
-        //for napkin
         res.send('HTTP/1.1 200 Connection Established\r\n\r\n')
         return
       }
@@ -75,9 +74,7 @@ api.any("/", async (req, res) => {
     while(!end)
       await new Promise(resolve => setTimeout(resolve, 2000))
   
-    //for napkin
-    res.send(rawResponse)    res.header('Content-Type', 'application/octet-stream')
-    res.send("test data")
+    res.send(rawResponse)
 });
 
 export async function handler(event: APIGatewayEvent, context: Context) {
