@@ -73,7 +73,7 @@ api.any("/", async (req, res) => {
   
         // collect raw http message:
         socket.on('data', function(chunk) {
-            rawResponse += chunk
+            //rawResponse += chunk
             console.log('chunk: ' + chunk)
         })
         socket.on('end', function(){
