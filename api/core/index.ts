@@ -31,7 +31,7 @@ function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
   return [host, port]
 }
 
-api.all('/', async (req, res) => {
+api.METHOD(['post','get', 'connect'], async (req, res) => {
     res.send(req.rawBody)
     return
     res.header('Content-Type', 'application/octet-stream')
