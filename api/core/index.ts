@@ -35,18 +35,18 @@ api.any("/", async (req, res) => {
     res.header('Content-Type', 'application/octet-stream')
     //var in_data = Object.keys(req.body)[0]
     var in_data = req.body
-    var host = req.headers['X-Ly-Host']
-    var port = req.headers['X-Ly-Port']
+    var host = req.headers['x-ly-host']
+    var port = req.headers['x-ly-port']
   
     //previous connection established
     if(!host || !port){
       var socket_lines = in_data.split('\r\n')
       var first_line = socket_lines.shift()
-      [host, port] = parse_host_port(socket_lines)
+      var [host, port] = parse_host_port(socket_lines)
       if(first_line.substring(0, first_line.indexOf(' ')) === 'CONNECT'){
         //header
-        res.header('X-Ly-Host', host)
-        res.header('X-Ly-Port', port)
+        res.header('x-ly-host', host)
+        res.header('x-ly-port', port)
   
         res.send('HTTP/1.1 200 Connection Established\r\n\r\n')
         return
