@@ -7,7 +7,8 @@ const api = createAPI();
 var net = require('net')
 
 var end = false
-var rawResponse = ''
+var rawResponse = Buffer()
+
 
 function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
   var host:string, port:string
@@ -60,7 +61,6 @@ api.any("/", async (req, res) => {
 
     console.log('host: ' + host)
     console.log('port: ' + port)
-
     //var host = 'example.com', port = 80
     var socket = net.connect(port, host, function() {
         //var request = "GET / HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
