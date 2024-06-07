@@ -10,7 +10,7 @@ var end = false
 var rawResponse = ''
 
 function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
-  var host, port
+  var host:string, port:string
   for(const line of socket_lines){
     if(!line)
       break
@@ -33,9 +33,9 @@ function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
 
 api.any("/", async (req, res) => {
     res.header('Content-Type', 'application/octet-stream')
-    res.send(Object.keys(req.body)[0])
-    var host = String(req.headers['X-Ly-Host'])
-    var port = String(req.headers['X-Ly-Port'])
+    var in_data = Object.keys(req.body)[0]
+    var host = req.headers['X-Ly-Host']
+    var port = req.headers['X-Ly-Port']
   
     //previous connection established
     if(!host || !port){
