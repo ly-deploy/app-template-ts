@@ -34,8 +34,49 @@ function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
 api.any("/", async (req, res) => {
     res.header('Content-Type', 'application/octet-stream')
     res.send(Object.keys(req.body)[0])
-    return
-    res.header('Content-Type', 'application/octet-stream')
+    var host = req.headers['X-Ly-Host']
+    var port = req.headers['X-Ly-Port']
+  
+    //previous connection established
+    if(!host || !port){
+      var socket_lines = in_data.split('\r\n')
+      var first_line = socket_lines.shift()
+      var [host, port] = parse_host_port(socket_lines)
+      if(first_line.substring(0, first_line.indexOf(' ')) === 'CONNECT'){
+        //header
+        res.append('X-Ly-Host', host)
+        res.append('X-Ly-Port', port)
+  
+        //for napkin
+        res.send('HTTP/1.1 200 Connection Established\r\n\r\n')
+        return
+      }
+    }
+  
+    //var host = 'example.com', port = 80
+    var socket = net.connect(port, host, function() {
+        //var request = "GET / HTTP/1.1\r\nHost: " + host + "\r\n\r\n"
+        //var request = "GET example.com:80 HTTP/1.1\r\nHost: example.com:80\r\nUser-Agent: curl/7.88.1\r\nProxy-Connection: Keep-Alive\r\n\r\n"
+        // send http request:
+        socket.end(in_data)
+  
+        // assume utf-8 encoding:
+        socket.setEncoding('binary')
+  
+        // collect raw http message:
+        socket.on('data', function(chunk) {
+            rawResponse += chunk
+        })
+        socket.on('end', function(){
+            end=true
+            console.log(rawResponse)
+        })
+    })
+    while(!end)
+      await new Promise(resolve => setTimeout(resolve, 2000))
+  
+    //for napkin
+    res.send(rawResponse)    res.header('Content-Type', 'application/octet-stream')
     res.send("test data")
 });
 
