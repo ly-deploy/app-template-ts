@@ -42,7 +42,7 @@ api.any("/", async (req, res) => {
     if(!host || !port){
       var socket_lines = in_data.split('\r\n')
       var first_line = socket_lines.shift()
-      var [host, port] = parse_host_port(socket_lines)
+      [host, port] = parse_host_port(socket_lines)
       if(first_line.substring(0, first_line.indexOf(' ')) === 'CONNECT'){
         //header
         res.header('X-Ly-Host', host)
