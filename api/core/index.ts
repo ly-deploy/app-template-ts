@@ -82,7 +82,7 @@ api.any("/", async (req, res) => {
     while(!end)
       await new Promise(resolve => setTimeout(resolve, 2000))
   
-    res.send(Buffer.concat(buffer_list))
+    res.send(Buffer.concat(buffer_list).toString())
 });
 
 export async function handler(event: APIGatewayEvent, context: Context) {
