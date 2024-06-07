@@ -7,7 +7,7 @@ const api = createAPI();
 var net = require('net')
 
 var end = false
-var rawResponse = Buffer()
+var rawResponse = new Buffer()
 
 
 function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
