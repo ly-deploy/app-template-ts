@@ -34,8 +34,8 @@ function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
 api.any("/", async (req, res) => {
     res.header('Content-Type', 'application/octet-stream')
     res.send(Object.keys(req.body)[0])
-    var host = req.headers['X-Ly-Host']
-    var port = req.headers['X-Ly-Port']
+    var host = String(req.headers['X-Ly-Host'])
+    var port = String(req.headers['X-Ly-Port'])
   
     //previous connection established
     if(!host || !port){
