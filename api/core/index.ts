@@ -37,8 +37,6 @@ api.any("/", async (req, res) => {
     var host = req.headers['X-Ly-Host']
     var port = req.headers['X-Ly-Port']
   
-    res.json({'host': host, 'port': port})
-    return
     //previous connection established
     if(!host || !port){
       var socket_lines = in_data.split('\r\n')
