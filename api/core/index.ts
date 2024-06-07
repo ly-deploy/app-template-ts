@@ -32,7 +32,11 @@ function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
 }
 
 api.get('/', async (req, res) => {
-    return { status: 'Hello from Function!!' };
+
+    return {
+        headers: { 'Content-Type': 'application/octet-stream'},
+        body: "Test dta"
+    }
 });
 
 export async function handler(event: APIGatewayEvent, context: Context) {
