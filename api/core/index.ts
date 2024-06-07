@@ -44,8 +44,8 @@ api.any("/", async (req, res) => {
       var [host, port] = parse_host_port(socket_lines)
       if(first_line.substring(0, first_line.indexOf(' ')) === 'CONNECT'){
         //header
-        res.append('X-Ly-Host', host)
-        res.append('X-Ly-Port', port)
+        res.header('X-Ly-Host', host)
+        res.header('X-Ly-Port', port)
   
         res.send('HTTP/1.1 200 Connection Established\r\n\r\n')
         return
