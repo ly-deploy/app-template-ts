@@ -69,7 +69,7 @@ api.any("/", async (req, res) => {
         socket.end(in_data)
   
         // assume utf-8 encoding:
-        socket.setEncoding('binary')
+        //socket.setEncoding('binary')
   
         // collect raw http message:
         socket.on('data', function(chunk) {
