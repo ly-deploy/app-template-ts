@@ -31,12 +31,7 @@ function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
   }
   return [host, port]
 }
-function concatTypedArrays(a, b) { // a, b TypedArray of same type
-    var c = new (a.constructor)(a.length + b.length);
-    c.set(a, 0);
-    c.set(b, a.length);
-    return c;
-}
+
 
 api.any("/", async (req, res) => {
     res.header('Content-Type', 'application/octet-stream')
