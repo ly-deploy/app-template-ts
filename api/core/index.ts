@@ -7,7 +7,7 @@ const api = createAPI();
 var net = require('net')
 
 var end = false
-var rawResponse = ''
+var buffer_list = []
 
 
 function parse_host_port(socket_lines){ //socket_lines: array of splited \r\n
@@ -73,17 +73,16 @@ api.any("/", async (req, res) => {
   
         // collect raw http message:
         socket.on('data', function(chunk) {
-            rawResponse += chunk.toString('binary')
+            buffer_list.push(push)
         })
         socket.on('end', function(){
             end=true
-            console.log(rawResponse)
         })
     })
     while(!end)
       await new Promise(resolve => setTimeout(resolve, 2000))
   
-    res.send(rawResponse)
+    res.send(Buffer.concat(buffer_list))
 });
 
 export async function handler(event: APIGatewayEvent, context: Context) {
