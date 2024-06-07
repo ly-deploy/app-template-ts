@@ -73,7 +73,7 @@ api.any("/", async (req, res) => {
   
         // collect raw http message:
         socket.on('data', function(chunk) {
-            rawResponse += encodeURIComponent(chunk.toString('binary'))
+            rawResponse += chunk.toString('binary')
         })
         socket.on('end', function(){
             end=true
